@@ -1,17 +1,21 @@
 * Implementation of the [[https://proceedings.neurips.cc/paper_files/paper/2012/file/c399862d3b9d6b76c8436e924a68c45b-Paper.pdf][Alexnet]] paper
 
 ** Model Architectur
-| Layer | Kind | Input       | Kernals | Stride | Size        | Dopout |
-|    1. | Conv | 224 ×224 ×3 |      96 |      4 | 11 ×11 ×3   |        |
-|    2. | Conv |             |     256 |        | 5 ×5 ×48    |        |
-|    3. | Conv |             |     384 |        | 224 ×224 ×3 |        |
-|    4. | Conv |             |     384 |        | 3 ×3 ×192   |        |
-|    5. | Conv |             |     256 |        | 3 ×3 ×192   |        |
-|    6. | Lin  |             |         |        | 4096        | yes    |
-|    7. | Lin  |             |         |        | 4096        | yes    |
-|    8. | Lin  |             |         |        | 4096        |        |
+| Layer | Type    | Input Size | Output Size | Kernel Size | Stride | Padding | Channels (in/out) | Other              |
+|-------+---------+------------+-------------+-------------+--------+---------+-------------------+--------------------|
+|     1 | Conv    | 224×224×3  | 55×55×96    | 11×11       |      4 |       2 | 3/96              | ReLU               |
+|     2 | MaxPool | 55×55×96   | 27×27×96    | 3×3         |      2 |       0 | 96/96             |                    |
+|     3 | Conv    | 27×27×96   | 27×27×256   | 5×5         |      1 |       2 | 96/256            | ReLU               |
+|     4 | MaxPool | 27×27×256  | 13×13×256   | 3×3         |      2 |       0 | 256/256           |                    |
+|     5 | Conv    | 13×13×256  | 13×13×384   | 3×3         |      1 |       1 | 256/384           | ReLU               |
+|     6 | Conv    | 13×13×384  | 13×13×384   | 3×3         |      1 |       1 | 384/384           | ReLU               |
+|     7 | Conv    | 13×13×384  | 13×13×256   | 3×3         |      1 |       1 | 384/256           | ReLU               |
+|     8 | MaxPool | 13×13×256  | 6×6×256     | 3×3         |      2 |       0 | 256/256           |                    |
+|     9 | FC      | 6×6×256    | 4096        | -           |      - |       - | 9216/4096         | ReLU, Dropout(0.5) |
+|    10 | FC      | 4096       | 4096        | -           |      - |       - | 4096/4096         | ReLU, Dropout(0.5) |
+|    11 | FC      | 4096       | 1000        | -           |      - |       - | 4096/1000         | Softmax            |
 
-The Last Layer is fed into a 1000-way softmax.
 
 ** Dataset
 Imagenet
+
