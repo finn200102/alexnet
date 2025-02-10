@@ -1,0 +1,17 @@
+* Implementation of the [[https://proceedings.neurips.cc/paper_files/paper/2012/file/c399862d3b9d6b76c8436e924a68c45b-Paper.pdf][Alexnet]] paper
+
+** Model Architectur
+| Layer | Kind | Input       | Kernals | Stride | Size        | Dopout |
+|    1. | Conv | 224 ×224 ×3 |      96 |      4 | 11 ×11 ×3   |        |
+|    2. | Conv |             |     256 |        | 5 ×5 ×48    |        |
+|    3. | Conv |             |     384 |        | 224 ×224 ×3 |        |
+|    4. | Conv |             |     384 |        | 3 ×3 ×192   |        |
+|    5. | Conv |             |     256 |        | 3 ×3 ×192   |        |
+|    6. | Lin  |             |         |        | 4096        | yes    |
+|    7. | Lin  |             |         |        | 4096        | yes    |
+|    8. | Lin  |             |         |        | 4096        |        |
+
+The Last Layer is fed into a 1000-way softmax.
+
+** Dataset
+Imagenet
