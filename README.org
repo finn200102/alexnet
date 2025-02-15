@@ -16,6 +16,4 @@
 |    11 | FC      | 4096       | 1000        | -           |      - |       - | 4096/1000         | Softmax            |
 
 
-** Dataset
-Imagenet
 
